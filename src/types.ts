@@ -22,3 +22,12 @@ export interface Coordinates {
     lat: number;
     long: number;
 }
+
+export interface Flag {
+    id: string;
+    location: Coordinates;
+    imageUrl: string;
+    userId: User['id']
+    description: string;
+    votes: Array<User['id']>;
+}

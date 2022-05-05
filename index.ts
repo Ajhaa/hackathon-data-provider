@@ -1,10 +1,14 @@
 import express from 'express'
 import Rand from 'rand-seed';
-import { fileHandler } from "./src/fileHandler";
+import { fileHandler, fileWriter } from "./src/fileHandler";
 import { User } from "./src/types";
 import { randomElementSeed } from "./src/util";
 import { getCoordinates } from "./src/coordinates";
+import cors from 'cors';
 const app = express();
+
+app.use(cors());
+app.use(express.json());
 
 const PORT = 3000;
 
@@ -12,6 +16,14 @@ function setHeaders(res : express.Response) {
     res.header("Content-Type",'application/json')
     res.header("Access-Control-Allow-Origin", "*")
     res.header("Cache-Control", "private, max-age=0")
+}
+
+async function getUserWithSeed(req) {
+    const usersJson = await fileHandler("./data/users.json")
+    const users: User[] = JSON.parse(usersJson)
+    const seed = new Rand(req.headers['seed'] as string || 'drWho')
+    const user = randomElementSeed(seed, users);
+    return user;
 }
 
 app.get('/me',  async (req, res) => {
@@ -53,9 +65,41 @@ app.get('/coordinates', async (req, res) => {
     res.send(JSON.stringify(users))
 })
 
+app.get('/flags', async (req, res) => {
+    const flagsJson = await fileHandler("./data/flags.json")
+    setHeaders(res)
+    let flags = JSON.parse(flagsJson);
+    if (req.query.sort === 'votes') {
+        flags = flags.sort((f1, f2) => f2.votes.length - f1.votes.length);
+    }
+    res.send(JSON.stringify(flags))
+});
+
+app.post('/flags', async (req, res) => {
+    const flagsJson = await fileHandler("./data/flags.json")
+    const flags = JSON.parse(flagsJson);
+    const newFlag = req.body;
+    flags.push(newFlag);
+    await fileWriter('./data/flags.json', JSON.stringify(flags, null, '  '));
+    res.status(200).end();
+});
+
+app.post('/flags/:id/vote', async (req, res) => {
+    const user = await getUserWithSeed(req);
+    const flagsJson = await fileHandler("./data/flags.json")
+    const flags = JSON.parse(flagsJson);
+    for (let flag of flags) {
+        if (flag.id === req.params.id) {
+            if (!flag.votes.includes(user.id)) flag.votes.push(user.id);
+        }
+    }
+    await fileWriter('./data/flags.json', JSON.stringify(flags, null, '  '));
+    res.status(200).end();
+});
+
 app.options('/me',  async (req, res) => {
     res.header("Access-Control-Allow-Origin", "*")
-    res.header("Access-Control-Allow-Methods", "GET, OPTIONS")
+    res.header("Access-Control-Allow-Methods", "GET, OPTIONS, POST")
     res.header("Access-Control-Allow-Headers", "seed")
     res.sendStatus(204)
 })
