@@ -76,9 +76,12 @@ app.get('/flags', async (req, res) => {
 });
 
 app.post('/flags', async (req, res) => {
+    const user = await getUserWithSeed(req);
     const flagsJson = await fileHandler("./data/flags.json")
     const flags = JSON.parse(flagsJson);
     const newFlag = req.body;
+    newFlag.userId = user.id;
+    newFlag.votes = [];
     flags.push(newFlag);
     await fileWriter('./data/flags.json', JSON.stringify(flags, null, '  '));
     res.status(200).end();

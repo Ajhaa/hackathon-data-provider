@@ -1,0 +1,38 @@
+[
+  {
+    "id": "FL1",
+    "location": {
+      "lat": 66.509936,
+      "lon": 25.725921
+    },
+    "imageUrl": "https://www.visitrovaniemi.fi/wp-content/uploads/Museum-Science-Centre-Arktikum-and-Northern-lights-in-Rovaniemi-Lapland-Finlandphoto-Alexander-Kuznetsov-900x505.jpg",
+    "userId": "U1",
+    "description": "Arktikumin puisto",
+    "votes": [
+      "U2",
+      "U6"
+    ]
+  },
+  {
+    "id": "FL2",
+    "location": {
+      "lat": 66.502858,
+      "lon": 25.74267
+    },
+    "description": "Jätkänkynttilä",
+    "votes": [
+      "U6",
+      "U3"
+    ]
+  },
+  {
+    "id": "FL3",
+    "location": {
+      "lat": 66.500263, "lon": 25.726362
+    },
+    "imageUrl": "http://kuva.fi",
+    "description": "Hieno graffiti",
+    "userId": "U8",
+    "votes": []
+  }
+]
