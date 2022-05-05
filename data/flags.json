@@ -9,8 +9,7 @@
     "userId": "U1",
     "description": "Arktikumin puisto",
     "votes": [
-      "U2",
-      "U6"
+      "U2"
     ]
   },
   {
@@ -19,20 +18,28 @@
       "lat": 66.502858,
       "lon": 25.74267
     },
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/44/Rovaniemi_-The_%E2%80%9DLumberjack%27s_Candle_Bridge.jpg",
     "description": "Jätkänkynttilä",
     "votes": [
-      "U6",
-      "U3"
+      "U2",
+      "U3",
+      "U4"
     ]
   },
   {
     "id": "FL3",
     "location": {
-      "lat": 66.500263, "lon": 25.726362
+      "lat": 66.500263,
+      "lon": 25.726362
     },
-    "imageUrl": "http://kuva.fi",
+    "imageUrl": "https://crop.kaleva.fi/ffA04UBdVRCDSIq3Iv7LPGMTIM8=/2600x1733/smart/https%3A//lorien-media-prod.s3.amazonaws.com/images/archive/2019/09/18/2019.09.18.07.28.09_neo-4244757.jpg",
     "description": "Hieno graffiti",
     "userId": "U8",
-    "votes": []
+    "votes": [
+      "U5",
+      "U7",
+      "U8",
+      "U9"
+    ]
   }
 ]
